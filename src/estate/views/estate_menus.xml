@@ -16,6 +16,7 @@
           <field name="date_availability"/>
         </tree>
       </field>
+
     </record>
 
     <record model="ir.ui.view" id="estate_view_form">
@@ -25,13 +26,13 @@
         <form string="test">
           <sheet>
               <group>
-                  <div>
-                    <h1>
-                      <field name="name"/>
-                    </h1>
-                  </div>
-                  <div>
-                  <group>
+                  <!-- <div> -->
+          
+                      <field name="name" class="mb12"/>
+                  
+                  <!-- </div> -->
+                  <!-- <div> -->
+                  <group >
                       <field name="postcode"/>
                       <field name="date_availability"/>
                   </group>
@@ -41,7 +42,7 @@
                       <field name="expected_price"/>
                       <field name="selling_price"/>
                   </group>
-                  </div>
+                  <!-- </div> -->
                   <notebook>
                       <page string="Description">
                           <group>
@@ -64,6 +65,23 @@
 
     
     </record>
+
+    <record model="ir.ui.view" id="estate_view_search">
+      <field name="name">estate.view.search</field>
+      <field name="model">estate.property</field>
+      <field name="arch" type="xml">
+        <search string="Custom Search">
+          <field name="name"/>
+          <field name="bedrooms"/>
+          <field name="living_area"/>
+          <field name="fascades"/>
+          <field name="expected_price"/>
+          <field name="postcode"/>
+        </search>
+      </field>
+    </record>
+
+    
 
 
     <!-- actions opening views on models -->
