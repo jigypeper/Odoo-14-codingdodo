@@ -1,5 +1,4 @@
 <odoo>
-  <data>
     <!-- explicit list view definition -->
 
     <record model="ir.ui.view" id="estate_view_list">
@@ -14,6 +13,8 @@
           <field name="expected_price"/>
           <field name="selling_price"/>
           <field name="date_availability"/>
+          <field name="salesman"/>
+          <field name="buyer"/>
         </tree>
       </field>
 
@@ -56,7 +57,12 @@
                             <field name="garden_orientation"/>
                           </group>
                       </page>
-                      <page string="Test"></page>
+                      <page string="Other info.">
+                        <group>
+                            <field name="salesman"/>
+                            <field name="buyer"/>
+                          </group>
+                      </page>
                   </notebook>
               </group>
           </sheet>
@@ -64,6 +70,16 @@
       </field>
 
     
+    </record>
+
+    <record model="ir.ui.view" id="property_type_list">
+      <field name="name">property.type.list</field>
+      <field name="model">estate.property.type</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+        </tree>
+      </field>
     </record>
 
     <record model="ir.ui.view" id="estate_view_search">
@@ -96,6 +112,12 @@
       <field name="view_mode">tree,form</field>
     </record>
 
+    <record model="ir.actions.act_window" id="action_estate_property_type">
+      <field name="name">Add Property</field>
+      <field name="res_model">estate.property.type</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
 
     <!-- server action to the one above -->
 <!--
@@ -121,6 +143,8 @@
 
     <menuitem name="Advertisements" id="estate_advertisements" parent="estate_menu_root"/>
     <menuitem name="Properties" id="estate_properties" parent="estate_advertisements" action="action_estate" />
+    <menuitem name="Options" id="estate_settings" parent="estate_menu_root"/>
+    <menuitem name="Property Types" id="estate_types" parent="estate_settings" action="action_estate_property_type"/>
 
     <!-- actions -->
 <!--
@@ -129,5 +153,4 @@
     <menuitem name="Server to list" id="codingdodo_addons/module_name" parent="codingdodo_addons/module_name.menu_2"
               action="codingdodo_addons/module_name.action_server"/>
 -->
-  </data>
 </odoo>
