@@ -7,6 +7,7 @@
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
+          <field name="estate_property_ids" widget="many2many_tags" />
           <field name="postcode"/>
           <field name="bedrooms"/>
           <field name="living_area"/>
@@ -30,6 +31,7 @@
                   <!-- <div> -->
           
                       <field name="name" class="mb12"/>
+                      <field name="estate_property_ids" widget="many2many_tags" />
                   
                   <!-- </div> -->
                   <!-- <div> -->
@@ -57,6 +59,15 @@
                             <field name="garden_orientation"/>
                           </group>
                       </page>
+                      <page string="Offers">
+                        <tree>
+                          <!-- <div class="o-row"> -->
+                            <field name="price"/>
+                            <field name="partner_id"/>
+                            <field name="status"/>
+                          <!-- </div> -->
+                        </tree>
+                      </page>
                       <page string="Other info.">
                         <group>
                             <field name="salesman"/>
@@ -82,6 +93,16 @@
       </field>
     </record>
 
+    <record model="ir.ui.view" id="property_tag_list">
+      <field name="name">property.tag.list</field>
+      <field name="model">estate.property.tag</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
     <record model="ir.ui.view" id="estate_view_search">
       <field name="name">estate.view.search</field>
       <field name="model">estate.property</field>
@@ -94,15 +115,39 @@
           <field name="expected_price"/>
           <field name="postcode"/>
         </search>
-        <filter name="New or Offer" domain="['|', ('state', '=', 'New'), ('state', '=', 'Offer Received')]" />
+        <!-- <filter name="New or Offer" domain="['|', ('state', '=', 'New'), ('state', '=', 'Offer Received')]" />
         <group expand="1" string="Group By">
           <filter string="Postcode" name="provider" context="{'group_by':'postcode', 'residual_visible':True}"/>
-        </group>
+        </group> -->
       </field>
     </record>
 
     
+    <record model="ir.ui.view" id="estate_offer_list">
+      <field name="name">estate.offer.list</field>
+      <field name="model">estate.property.offer</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="price"/>
+          <field name="partner_id"/>
+          <field name="status"/>
+        </tree>
+      </field>
 
+    </record>
+
+    <record model="ir.ui.view" id="estate_offer_form">
+      <field name="name">estate.offer.form</field>
+      <field name="model">estate.property.offer</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="price"/>
+          <field name="partner_id"/>
+          <field name="status"/>
+        </tree>
+      </field>
+
+    </record>
 
     <!-- actions opening views on models -->
 
@@ -115,6 +160,12 @@
     <record model="ir.actions.act_window" id="action_estate_property_type">
       <field name="name">Add Property</field>
       <field name="res_model">estate.property.type</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_estate_property_tag">
+      <field name="name">Add Property Tag</field>
+      <field name="res_model">estate.property.tag</field>
       <field name="view_mode">tree,form</field>
     </record>
 
@@ -145,6 +196,7 @@
     <menuitem name="Properties" id="estate_properties" parent="estate_advertisements" action="action_estate" />
     <menuitem name="Options" id="estate_settings" parent="estate_menu_root"/>
     <menuitem name="Property Types" id="estate_types" parent="estate_settings" action="action_estate_property_type"/>
+    <menuitem name="Property Tags" id="estate_tags" parent="estate_settings" action="action_estate_property_tag"/>
 
     <!-- actions -->
 <!--

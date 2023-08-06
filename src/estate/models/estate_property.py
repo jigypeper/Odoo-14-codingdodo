@@ -47,6 +47,14 @@ class EstateProperty(models.Model):
     salesman = fields.Many2one("res.partner", string="Salesman")
     buyer = fields.Many2one("res.partner", string="Buyer")
     property_type_id = fields.Many2one("estate.property.type", string="Property Type")
+    estate_property_ids = fields.Many2many("estate.property.tag")
+    price = fields.One2many("estate.property.offer", "price")
+    partner_ids = fields.One2many("estate.property.offer", "partner_id")
+    status = fields.Selection(related="partner_id.status", selection=[
+            ("accepted", "Offer Accepted"),
+            ("refuse", "Offer Refused")
+        ]
+    )
     # value2 = fields.Float(compute="_value_pc", store=True)
     # description = fields.Text()
 
